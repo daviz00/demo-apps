@@ -1,0 +1,62 @@
+.flex {
+  display: flex;
+}
+
+.algn-cntr {
+  align-items: center;
+}
+
+.jstfy-cntr {
+  justify-content: center;
+}
+
+button {
+  padding: 12px 18px;
+  outline: none;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08);
+  font-size: 1.125rem;
+  font-weight: 900;
+  border-radius: 9px;
+  border: 1px solid #49c758;
+  cursor: pointer;
+}
+
+main {
+  height: 100vh;
+  width: 100vw;
+  flex-direction: column;
+
+  .login-with-whatsapp-button {
+    background: #fff;
+    img {
+      height: 30px;
+      width: 30px;
+      margin-right: 10px;
+    }
+  }
+  .response {
+    flex-direction: column;
+    p {
+      margin: 10px 0;
+      font-size: 1.5rem;
+      text-align: center;
+      font-weight: 100;
+      &.success {
+        font-size: 2rem;
+        font-weight: 900;
+        color: #49c758;
+        margin-bottom: 20px;
+      }
+      span {
+        font-weight: 900;
+      }
+    }
+    button {
+      background: #49c758;
+      color: #fff;
+      margin-top: 20px;
+      width: 50%;
+    }
+  }
+}
