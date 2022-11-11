@@ -21,8 +21,6 @@ export class AppComponent {
 
   //Constants
   appId = 'OTPLess:NPMVXHQQAZBBNOXLWIIDTSLPWTABFXQY';
-  appSecret =
-    'XX0EEFehShuoGsDjVAfVFhgQvz2UdyjLI8zoqHQx6MSQhPayH72b3q2ihBFtssFeB';
   headers = { 'Content-Type': 'application/json', appId: this.appId };
   baseUrl = 'https://api.otpless.app/v1/client/user/session';
   sessionVerified = false;
@@ -37,13 +35,18 @@ export class AppComponent {
     response: {},
   };
 
+  getAppSecretMap = {
+    url: `https://your.domain.com/getAppSecret`,
+    data: {
+      project: 'Angular',
+    },
+    response: {},
+  };
+
   getUserDetailsMap: any = {
     url: `${this.baseUrl}/userdata`,
     data: {
       token: this.getURLParameter('token'),
-    },
-    headers: {
-      appSecret: this.appSecret,
     },
     response: {},
   };
@@ -64,7 +67,7 @@ export class AppComponent {
   ngOnInit() {
     if (this.getURLParameter('token')) {
       localStorage.setItem('token', this.getURLParameter('token'));
-      this.getUserDetails();
+      this.getAppSecret();
     }
   }
 
@@ -79,8 +82,20 @@ export class AppComponent {
     });
   }
 
-  getUserDetails() {
-    const apiCall = this.postApiCall(this.getUserDetailsMap);
+  getAppSecret() {
+    const apiCall = this.postApiCall(this.getAppSecretMap);
+    apiCall.subscribe((data: any) => {
+      this.getUserDetails(data.appSecret);
+    });
+  }
+
+  getUserDetails(appSecret: string) {
+    const apiCall = this.postApiCall({
+      ...this.getUserDetailsMap,
+      headers: {
+        appSecret,
+      },
+    });
     apiCall.subscribe((data: any) => {
       window.history.pushState({}, document.title, '/');
       const details = data.data;
