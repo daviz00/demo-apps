@@ -36,9 +36,6 @@ const App = () => {
 
   const getAppSecretMap = {
     url: `https://your.domain.com/getAppSecret`,
-    data: {
-      project: "REACT",
-    },
     response: {},
   };
 
@@ -59,6 +56,16 @@ const App = () => {
   }, []);
 
   //Functions
+  const getApiCall = async (apiDetails: any) => {
+    return await fetch(apiDetails.url, {
+      method: "GET",
+      headers: {
+        ...headers,
+        ...(apiDetails.headers && { ...apiDetails.headers }),
+      },
+    }).then((response) => response.json());
+  };
+
   const postApiCall = async (apiDetails: any) => {
     return await fetch(apiDetails.url, {
       method: "POST",
@@ -75,7 +82,7 @@ const App = () => {
   };
 
   const getAppSecret = () => {
-    const apiCall = postApiCall(getAppSecretMap);
+    const apiCall = getApiCall(getAppSecretMap);
     apiCall.then((data) => {
       getUserDetails(data.appSecret);
     });

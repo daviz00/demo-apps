@@ -37,9 +37,6 @@ export class AppComponent {
 
   getAppSecretMap = {
     url: `https://your.domain.com/getAppSecret`,
-    data: {
-      project: 'Angular',
-    },
     response: {},
   };
 
@@ -55,6 +52,15 @@ export class AppComponent {
   constructor(private http: HttpClient) {}
 
   //Functions
+  getApiCall(apiDetails: any) {
+    return this.http.get(apiDetails.url, {
+      headers: {
+        ...this.headers,
+        ...(apiDetails.headers && { ...apiDetails.headers }),
+      },
+    });
+  }
+
   postApiCall(apiDetails: any) {
     return this.http.post(apiDetails.url, apiDetails.data, {
       headers: {
@@ -83,7 +89,7 @@ export class AppComponent {
   }
 
   getAppSecret() {
-    const apiCall = this.postApiCall(this.getAppSecretMap);
+    const apiCall = this.getApiCall(this.getAppSecretMap);
     apiCall.subscribe((data: any) => {
       this.getUserDetails(data.appSecret);
     });
