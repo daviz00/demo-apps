@@ -20,9 +20,7 @@ const App = () => {
 
   //Constants
   const appId = "OTPLess:VHJMCSOXWSLTZBEMPOFRDAPPYSBFGXSE";
-  const appSecret =
-    "nkE2AmDN1abSHuq3vO9y8ltTBC5p3JgNk6WGS3rK8Fk8qvrO8dN8WMQjWRWamcOam";
-  const headers = { "Content-Type": "application/json", appId: appId };
+  const headers = { "Content-Type": "application/json", appId };
   const baseUrl = "https://api.otpless.app/v1/client/user/session";
   const [sessionVerified, setSessionVerified] = useState(false);
 
@@ -36,13 +34,18 @@ const App = () => {
     response: {},
   };
 
+  const getAppSecretMap = {
+    url: `https://your.domain.com/getAppSecret`,
+    data: {
+      project: "REACT",
+    },
+    response: {},
+  };
+
   const getUserDetailsMap: any = {
     url: `${baseUrl}/userdata`,
     data: {
       token: getURLParameter("token"),
-    },
-    headers: {
-      appSecret: appSecret,
     },
     response: {},
   };
@@ -51,7 +54,7 @@ const App = () => {
   useEffect(() => {
     if (getURLParameter("token")) {
       localStorage.setItem("token", getURLParameter("token"));
-      getUserDetails();
+      getAppSecret();
     }
   }, []);
 
@@ -71,6 +74,13 @@ const App = () => {
     setSessionVerified(false);
   };
 
+  const getAppSecret = () => {
+    const apiCall = postApiCall(getAppSecretMap);
+    apiCall.then((data) => {
+      getUserDetails(data.appSecret);
+    });
+  };
+
   const initiateLogin = () => {
     const apiCall = postApiCall(initiateLoginMap);
     apiCall.then((data: any) => {
@@ -78,8 +88,13 @@ const App = () => {
     });
   };
 
-  const getUserDetails = () => {
-    const apiCall = postApiCall(getUserDetailsMap);
+  const getUserDetails = (appSecret: string) => {
+    const apiCall = postApiCall({
+      ...getUserDetailsMap,
+      headers: {
+        appSecret,
+      },
+    });
     apiCall.then((data: any) => {
       window.history.pushState({}, document.title, "/");
       const details = data.data;
