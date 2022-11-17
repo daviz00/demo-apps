@@ -1,27 +1,13 @@
 <main class="flex algn-cntr jstfy-cntr">
-  <button
-    class="login-with-whatsapp-button"
-    (click)="initiateLogin()"
-    *ngIf="!sessionVerified"
-  >
+  <button class="login-with-whatsapp-button" (click)="initiateLogin()">
     <div class="flex algn-cntr">
       <img src="../assets/whatsapp.svg" />
       <p>Login With Whatsapp</p>
     </div>
   </button>
-  <div class="response flex algn-cntr jstfy-cntr" *ngIf="sessionVerified">
-    <p class="success">Your Session has been verified</p>
-    <div class="details">
-      <p>
-        Name: <span>{{ getUserDetailsMap.response.name ?? "Mickey" }}</span>
-      </p>
-      <p>
-        Mobile:
-        <span>{{ getUserDetailsMap.response.mobile ?? "898099455" }}</span>
-      </p>
-    </div>
-    <button (click)="resetSession()">Reset</button>
-  </div>
+  <p class="token" *ngIf="token">
+    Your Token: <span>{{ token }}</span>
+  </p>
 </main>
 
 <router-outlet></router-outlet>

@@ -26,7 +26,7 @@ main {
   height: 100vh;
   width: 100vw;
   flex-direction: column;
-
+  overflow: hidden;
   .login-with-whatsapp-button {
     background: #fff;
     img {
@@ -35,28 +35,13 @@ main {
       margin-right: 10px;
     }
   }
-  .response {
-    flex-direction: column;
-    p {
-      margin: 10px 0;
-      font-size: 1.5rem;
-      text-align: center;
-      font-weight: 300;
-      &.success {
-        font-size: 2rem;
-        font-weight: 900;
-        color: #49c758;
-        margin-bottom: 20px;
-      }
-      span {
-        font-weight: 900;
-      }
-    }
-    button {
-      background: #49c758;
-      color: #fff;
-      margin-top: 20px;
-      width: 50%;
+  .token {
+    font-size: 1.25rem;
+    width: 70%;
+    margin: 20px auto;
+    word-break: break-all;
+    span {
+      font-weight: 700;
     }
   }
 }

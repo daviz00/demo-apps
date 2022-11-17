@@ -108,3 +108,4 @@ node_modules
 .DS_Store
 .angular
 .vscode
+package-lock.json
