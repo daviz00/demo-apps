@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import WhatsappIcon from "./whatsapp.svg";
 import "./App.scss";
-import otplessSdk from "otpless-test/dist";
+import otplessSdk from "otpless-js-sdk";
 
 const App = () => {
   //Constants
@@ -21,7 +21,7 @@ const App = () => {
 
   //Functions
   const initiateLogin = () => {
-    getIntent = sdkIntance.getIntent({
+    getIntent = sdkIntance.createGetIntentOnClick({
       redirectionURL: "http://localhost:3000",
     });
     return getIntent();
