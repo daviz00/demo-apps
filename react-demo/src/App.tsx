@@ -22,7 +22,7 @@ const App = () => {
   //Functions
   const initiateLogin = () => {
     getIntent = sdkIntance.getIntent({
-      redirectionURL: "http://localhost:3001",
+      redirectionURL: "http://localhost:3000",
     });
     return getIntent();
   };
