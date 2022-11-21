@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import otplessSdk from 'otpless-test/dist';
+import otplessSdk from 'otpless-js-sdk';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,7 +23,7 @@ export class AppComponent {
   }
 
   initiateLogin() {
-    this.getIntent = this.sdkIntance.getIntent({
+    this.getIntent = this.sdkIntance.createGetIntentOnClick({
       redirectionURL: 'http://localhost:4200',
     });
     return this.getIntent();
